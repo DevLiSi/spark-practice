@@ -4,7 +4,7 @@ import pandas as pd
 
 # 定义下载 URL 和本地文件路径
 local_zip_path = "./temp_file.zip"
-target_folder = "original_data"
+target_folder = "./datalake/original_data"
 
 if not os.path.exists(target_folder):
     os.makedirs(target_folder)
