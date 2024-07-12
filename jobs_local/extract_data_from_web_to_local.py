@@ -2,21 +2,23 @@ import requests
 import zipfile
 from concurrent.futures import ThreadPoolExecutor
 
-target_folder = "./datalake/original_data"
+# volume to "/mnt/spark_data_lake"
+target_folder = "/Users/sili/Bigdata/local_data_lake"
 
 # download date list
-date_array = [
-              "Q3_2019", "Q4_2019",
-              "Q1_2020", "Q2_2020", "Q3_2020", "Q4_2020",
-              "Q1_2021", "Q2_2021", "Q3_2021", "Q4_2021",
-              "Q1_2022", "Q2_2022", "Q3_2022", "Q4_2022",
-              "Q1_2023", "Q2_2023", "Q3_2023"]
+# date_array = [
+#               "Q3_2019", "Q4_2019",
+#               "Q1_2020", "Q2_2020", "Q3_2020", "Q4_2020",
+#               "Q1_2021", "Q2_2021", "Q3_2021", "Q4_2021",
+#               "Q1_2022", "Q2_2022", "Q3_2022", "Q4_2022",
+#               "Q1_2023", "Q2_2023", "Q3_2023"]
+date_array = ["Q1_2019", "Q2_2019"]
 
 
 def download_and_unzip(data_date):
     url = f"https://f001.backblazeb2.com/file/Backblaze-Hard-Drive-Data/data_{data_date}.zip"
     local_zip_path = f"temp_file_{data_date}.zip"
-    print(f"start download {data_date}datasource...")
+    print(f"start download {data_date} datasource...")
     response = requests.get(url)
     print(f"end download {data_date} datasource...")
     with open(local_zip_path, "wb") as file:

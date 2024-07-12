@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 # 定义默认参数
 default_args = {
-    'owner': 'admin',
+    'owner': 'airflow',
     'depends_on_past': False,
     'email_on_failure': False,
     'email_on_retry': False,

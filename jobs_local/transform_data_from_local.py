@@ -1,14 +1,13 @@
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as sf
 
-# 创建 SparkSession
 spark = SparkSession.builder \
-    .appName("Read All CSV Files") \
+    .appName("Read csv files from local data") \
     .getOrCreate()
 
 # 定义要读取的目录路径
-csv_directory = "./original_data"
-output_directory = "./output_data"
+csv_directory = "/mnt/spark_data_lake"
+output_directory = "/mnt/spark_data_lake/output"
 
 # 读取目录下的所有 CSV 文件
 df = spark.read.csv(csv_directory, header=True, inferSchema=True)
@@ -35,7 +34,6 @@ group_year_df = selected_df_with_brand.groupby(sf.year("date").alias("year"), "b
 group_date_df.write.format("csv").mode("overwrite").option("header", "true").save(f"{output_directory}/group_date")
 group_year_df.write.format("csv").mode("overwrite").option("header", "true").save(f"{output_directory}/group_year")
 
-# 打印 DataFrame 的 Schema
 group_date_df.printSchema()
 group_year_df.printSchema()
 
