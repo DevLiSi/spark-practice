@@ -5,7 +5,7 @@ spark = SparkSession.builder \
     .config("spark.jars", "./jars/postgresql-42.7.3.jar") \
     .getOrCreate()
 
-csv_directory = "/mnt/spark_data_lake/outpu/"
+csv_directory = "/mnt/spark_data_lake/output/"
 
 # read from csv
 df_group_date = spark.read.csv(f"{csv_directory}/group_date", header=True, inferSchema=True)
