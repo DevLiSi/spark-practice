@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from datetime import datetime, timedelta
 
 # 定义默认参数
@@ -22,16 +23,26 @@ dag = DAG(
     catchup=False,
 )
 
+
 # 定义任务的Python函数
 def print_hello():
     print("Hello World")
 
+
 def print_goodbye():
     print("Goodbye World")
+
 
 hello_task = PythonOperator(
     task_id='hello_task',
     python_callable=print_hello,
+    dag=dag,
+)
+
+spark_test = SparkSubmitOperator(
+    task_id='spark_task',
+    application='/Users/sili/Bigdata/spark-practice/demo/spark_df_test.py',
+    conn_id='spark-local-test',
     dag=dag,
 )
 
@@ -41,4 +52,4 @@ goodbye_task = PythonOperator(
     dag=dag,
 )
 
-hello_task >> goodbye_task
+hello_task >> spark_test >> goodbye_task
